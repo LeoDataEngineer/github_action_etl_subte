@@ -37,7 +37,7 @@ def conectar_snowflake():
 
 def cargar_datos_db_subte(conn, df):
     """Carga datos desde un DataFrame de pandas a la tabla 'subtedata' en Snowflake"""
-    write_pandas(conn, df, 'subtedata')
+    write_pandas(conn, df, 'SUBTEDATA')
     print("DataFrame cargado en Snowflake.")
 
 def main():
@@ -46,7 +46,7 @@ def main():
     
     # Asumiendo que 'subte_data.csv' es el archivo con los datos extraídos
     df = pd.read_csv('subte_data.csv')
-    # df.columns = df.columns.str.upper()
+    df.columns = df.columns.str.upper()
 
     cargar_datos_db_subte(conn, df)
     
