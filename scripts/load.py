@@ -18,23 +18,33 @@ def conectar_snowflake():
 def crear_tabla_subte(conn):
     """Crea la tabla 'subtedata' si no existe"""
     cur = conn.cursor()
-    cur.execute("""
-                DROP TABLE IF EXISTS subtedata;
-                CREATE TABLE subtedata (
-                   id_linea VARCHAR(100) NOT NULL,
-                    Route_Id VARCHAR(100) NOT NULL,
-                    Direction_ID INT NOT NULL,
-                    Direction_to  VARCHAR(200) NOT NULL,
-                    start_date  DATE NOT NULL,
-                    stop_name VARCHAR(200) NOT NULL,
-                    arrival_time TIMESTAMP,
-                    arrival_delay FLOAT,
-                    departure_time TIMESTAMP,
-                    departure_delay FLOAT,
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                )
-                """)
-    cur.close()
+    try:
+        # Primero, intenta eliminar la tabla si existe
+        cur.execute("DROP TABLE IF EXISTS subtedata")
+        # Luego, crea la nueva tabla
+        cur.execute("""
+                    CREATE TABLE subtedata (
+                       id_linea VARCHAR(100) NOT NULL,
+                        Route_Id VARCHAR(100) NOT NULL,
+                        Direction_ID INT NOT NULL,
+                        Direction_to  VARCHAR(200) NOT NULL,
+                        start_date  DATE NOT NULL,
+                        stop_name VARCHAR(200) NOT NULL,
+                        arrival_time TIMESTAMP,
+                        arrival_delay FLOAT,
+                        departure_time TIMESTAMP,
+                        departure_delay FLOAT,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    )
+                    """)
+        # Confirma los cambios
+        conn.commit()
+        print("Tabla 'subtedata' creada exitosamente.")
+    except Exception as e:
+        print("Error al crear la tabla:", e)
+    finally:
+        cur.close()
+
 
 
 def cargar_datos_db_subte(conn, df):
