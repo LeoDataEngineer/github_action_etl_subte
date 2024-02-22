@@ -45,7 +45,7 @@ def main():
     
     # Asumiendo que 'subte_data.csv' es el archivo con los datos extraídos
     df = pd.read_csv('subte_data.csv')
-    df.columns = df.columns.str.upper()
+    # df.columns = df.columns.str.upper()
 
     crear_tabla_subte(conn)
     cargar_datos_db_subte(conn, df)
