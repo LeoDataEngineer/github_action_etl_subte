@@ -16,10 +16,10 @@ def conectar_snowflake():
     return conn
 
 def crear_tabla_subte(conn):
-    """Crea la tabla 'CF_USUARIOS' si no existe"""
+    """Crea la tabla 'subtedata' si no existe"""
     cur = conn.cursor()
     cur.execute("""
-                CREATE TABLE IF NOT EXISTS CF_USUARIOS (
+                CREATE TABLE IF NOT EXISTS subtedata (
                    id_linea VARCHAR(100) NOT NULL,
                     Route_Id VARCHAR(100) NOT NULL,
                     Direction_ID INT NOT NULL,
@@ -36,8 +36,8 @@ def crear_tabla_subte(conn):
     cur.close()
 
 def cargar_datos_db_subte(conn, df):
-    """Carga datos desde un DataFrame de pandas a la tabla 'CF_USUARIOS' en Snowflake"""
-    write_pandas(conn, df, 'CF_USUARIOS')
+    """Carga datos desde un DataFrame de pandas a la tabla 'subtedata' en Snowflake"""
+    write_pandas(conn, df, 'subtedata')
     print("DataFrame cargado en Snowflake.")
 
 def main():
