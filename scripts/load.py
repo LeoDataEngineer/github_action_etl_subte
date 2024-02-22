@@ -42,12 +42,12 @@ def cargar_datos_db_subte(conn, df):
 
 def main():
     conn = conectar_snowflake()
+    crear_tabla_subte(conn)
     
     # Asumiendo que 'subte_data.csv' es el archivo con los datos extraídos
     df = pd.read_csv('subte_data.csv')
     # df.columns = df.columns.str.upper()
 
-    crear_tabla_subte(conn)
     cargar_datos_db_subte(conn, df)
     
     # Cerrar la conexión
