@@ -19,7 +19,7 @@ def crear_tabla_subte(conn):
     """Crea la tabla 'subtedata' si no existe"""
     cur = conn.cursor()
     cur.execute("""
-                DROP TABLE RAW.SUBTEDATA;
+                DROP TABLE subtedata;
                 CREATE TABLE IF NOT EXISTS subtedata (
                    id_linea VARCHAR(100) NOT NULL,
                     Route_Id VARCHAR(100) NOT NULL,
