@@ -1,8 +1,8 @@
 name: ELT con Python subte
 
 on:
-    workflow_dispatch:
-
+  schedule:
+    - cron: '*/1 * * * *'  # Ejecutar cada minuto
 jobs:
     extract:
         runs-on: ubuntu-latest
