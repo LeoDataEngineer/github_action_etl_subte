@@ -15,25 +15,26 @@ def conectar_snowflake():
     )
     return conn
 
-# def crear_tabla_subte(conn):
-#     """Crea la tabla 'subtedata' si no existe"""
-#     cur = conn.cursor()
-#     cur.execute("""
-#                 CREATE TABLE IF NOT EXISTS subtedata (
-#                    id_linea VARCHAR(100) NOT NULL,
-#                     Route_Id VARCHAR(100) NOT NULL,
-#                     Direction_ID INT NOT NULL,
-#                     Direction_to  VARCHAR(200) NOT NULL,
-#                     start_date  DATE NOT NULL,
-#                     stop_name VARCHAR(200) NOT NULL,
-#                     arrival_time TIMESTAMP,
-#                     arrival_delay FLOAT,
-#                     departure_time TIMESTAMP,
-#                     departure_delay FLOAT,
-#                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-#                 )
-#                 """)
-#     cur.close()
+def crear_tabla_subte(conn):
+    """Crea la tabla 'subtedata' si no existe"""
+    cur = conn.cursor()
+    cur.execute("""
+                DROP TABLE RAW.SUBTEDATA;
+                CREATE TABLE IF NOT EXISTS subtedata (
+                   id_linea VARCHAR(100) NOT NULL,
+                    Route_Id VARCHAR(100) NOT NULL,
+                    Direction_ID INT NOT NULL,
+                    Direction_to  VARCHAR(200) NOT NULL,
+                    start_date  DATE NOT NULL,
+                    stop_name VARCHAR(200) NOT NULL,
+                    arrival_time TIMESTAMP,
+                    arrival_delay FLOAT,
+                    departure_time TIMESTAMP,
+                    departure_delay FLOAT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+                """)
+    cur.close()
 
 def cargar_datos_db_subte(conn, df):
     """Carga datos desde un DataFrame de pandas a la tabla 'subtedata' en Snowflake"""
@@ -42,7 +43,7 @@ def cargar_datos_db_subte(conn, df):
 
 def main():
     conn = conectar_snowflake()
-    # crear_tabla_subte(conn)
+    crear_tabla_subte(conn)
     
     # Asumiendo que 'subte_data.csv' es el archivo con los datos extraídos
     df = pd.read_csv('subte_data.csv')
