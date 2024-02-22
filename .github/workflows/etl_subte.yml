@@ -17,7 +17,7 @@ jobs:
             - name: Extrae, procesa guarad data en csv
               uses: actions/upload-artifact@v4
               with:
-                name: subte data
+                name: subte
                 path: subte_data.csv
     load:
         runs-on: ubuntu-latest
@@ -32,7 +32,7 @@ jobs:
             - name: Download users data from Extract Job
               uses: actions/download-artifact@v4
               with:
-                name: usuarios
+                name: subte
             - name: Subir datos a snowflake
               run: python ./scripts/load.py
               env:
