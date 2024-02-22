@@ -1,4 +1,4 @@
-name: ELT con Python
+name: ELT con Python subte
 
 on:
     workflow_dispatch:
